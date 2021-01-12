@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="data/Costpermetr_1.js"></script>
+        <script src="data/Cost_2.js"></script>
+        <script src="data/Status_3.js"></script>
+        <script src="data/Category_4.js"></script>
+        <script src="data/Area_5.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[55.8896437661922,94.86997319292318],[55.916523395095666,94.94686177706383]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_OSMStandard_0');
+        map.getPane('pane_OSMStandard_0').style.zIndex = 400;
+        var layer_OSMStandard_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            pane: 'pane_OSMStandard_0',
+            opacity: 1.0,
+            attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_OSMStandard_0;
+        map.addLayer(layer_OSMStandard_0);
+        function pop_Costpermetr_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Стоимость</th>\
+                        <td>' + (feature.properties['C_COST'] !== null ? autolinker.link(feature.properties['C_COST'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Площадь</th>\
+                        <td>' + (feature.properties['AREA'] !== null ? autolinker.link(feature.properties['AREA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Вид использования</th>\
+                        <td>' + (feature.properties['UTL_DOC'] !== null ? autolinker.link(feature.properties['UTL_DOC'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Стоимость кв. метра</th>\
+                        <td>' + (feature.properties['Area_cost_m2'] !== null ? autolinker.link(feature.properties['Area_cost_m2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Costpermetr_1_0(feature) {
+            if (feature.properties['q2wHide_Area_cost'] >= 0.000000 && feature.properties['q2wHide_Area_cost'] <= 1422280.000000 ) {
+                return {
+                pane: 'pane_Costpermetr_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(43,131,186,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['q2wHide_Area_cost'] >= 1422280.000000 && feature.properties['q2wHide_Area_cost'] <= 2844560.000000 ) {
+                return {
+                pane: 'pane_Costpermetr_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(100,171,176,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['q2wHide_Area_cost'] >= 2844560.000000 && feature.properties['q2wHide_Area_cost'] <= 4266840.000000 ) {
+                return {
+                pane: 'pane_Costpermetr_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(157,211,167,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['q2wHide_Area_cost'] >= 4266840.000000 && feature.properties['q2wHide_Area_cost'] <= 5689120.000000 ) {
+                return {
+                pane: 'pane_Costpermetr_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(199,233,173,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['q2wHide_Area_cost'] >= 5689120.000000 && feature.properties['q2wHide_Area_cost'] <= 7111400.000000 ) {
+                return {
+                pane: 'pane_Costpermetr_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(237,248,185,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['q2wHide_Area_cost'] >= 7111400.000000 && feature.properties['q2wHide_Area_cost'] <= 8533680.000000 ) {
+                return {
+                pane: 'pane_Costpermetr_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,237,170,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['q2wHide_Area_cost'] >= 8533680.000000 && feature.properties['q2wHide_Area_cost'] <= 9955960.000000 ) {
+                return {
+                pane: 'pane_Costpermetr_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,201,128,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['q2wHide_Area_cost'] >= 9955960.000000 && feature.properties['q2wHide_Area_cost'] <= 11378240.000000 ) {
+                return {
+                pane: 'pane_Costpermetr_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(249,158,89,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['q2wHide_Area_cost'] >= 11378240.000000 && feature.properties['q2wHide_Area_cost'] <= 12800520.000000 ) {
+                return {
+                pane: 'pane_Costpermetr_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(232,91,58,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['q2wHide_Area_cost'] >= 12800520.000000 && feature.properties['q2wHide_Area_cost'] <= 14222800.000000 ) {
+                return {
+                pane: 'pane_Costpermetr_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(215,25,28,1.0)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_Costpermetr_1');
+        map.getPane('pane_Costpermetr_1').style.zIndex = 401;
+        map.getPane('pane_Costpermetr_1').style['mix-blend-mode'] = 'normal';
+        var layer_Costpermetr_1 = new L.geoJson(json_Costpermetr_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Costpermetr_1',
+            layerName: 'layer_Costpermetr_1',
+            pane: 'pane_Costpermetr_1',
+            onEachFeature: pop_Costpermetr_1,
+            style: style_Costpermetr_1_0,
+        });
+        bounds_group.addLayer(layer_Costpermetr_1);
+        map.addLayer(layer_Costpermetr_1);
+        function pop_Cost_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Стоимость</th>\
+                        <td>' + (feature.properties['C_COST'] !== null ? autolinker.link(feature.properties['C_COST'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Площадь</th>\
+                        <td>' + (feature.properties['AREA'] !== null ? autolinker.link(feature.properties['AREA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Вид использования</th>\
+                        <td>' + (feature.properties['UTL_DOC'] !== null ? autolinker.link(feature.properties['UTL_DOC'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Стоимость кв. метра</th>\
+                        <td>' + (feature.properties['Area_cost_m2'] !== null ? autolinker.link(feature.properties['Area_cost_m2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Cost_2_0(feature) {
+            if (feature.properties['q2wHide_cost_normal'] >= 0.000000 && feature.properties['q2wHide_cost_normal'] <= 1316498.700000 ) {
+                return {
+                pane: 'pane_Cost_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(43,131,186,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['q2wHide_cost_normal'] >= 1316498.700000 && feature.properties['q2wHide_cost_normal'] <= 5188415.290000 ) {
+                return {
+                pane: 'pane_Cost_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(171,221,164,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['q2wHide_cost_normal'] >= 5188415.290000 && feature.properties['q2wHide_cost_normal'] <= 14495782.840000 ) {
+                return {
+                pane: 'pane_Cost_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,191,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['q2wHide_cost_normal'] >= 14495782.840000 && feature.properties['q2wHide_cost_normal'] <= 88951486.800000 ) {
+                return {
+                pane: 'pane_Cost_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,174,97,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['q2wHide_cost_normal'] >= 88951486.800000 && feature.properties['q2wHide_cost_normal'] <= 141938866.080000 ) {
+                return {
+                pane: 'pane_Cost_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(215,25,28,1.0)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_Cost_2');
+        map.getPane('pane_Cost_2').style.zIndex = 402;
+        map.getPane('pane_Cost_2').style['mix-blend-mode'] = 'normal';
+        var layer_Cost_2 = new L.geoJson(json_Cost_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Cost_2',
+            layerName: 'layer_Cost_2',
+            pane: 'pane_Cost_2',
+            onEachFeature: pop_Cost_2,
+            style: style_Cost_2_0,
+        });
+        bounds_group.addLayer(layer_Cost_2);
+        map.addLayer(layer_Cost_2);
+        function pop_Status_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Статус</th>\
+                        <td>' + (feature.properties['STATUS'] !== null ? autolinker.link(feature.properties['STATUS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Стоимость</th>\
+                        <td>' + (feature.properties['C_COST'] !== null ? autolinker.link(feature.properties['C_COST'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Площадь</th>\
+                        <td>' + (feature.properties['AREA'] !== null ? autolinker.link(feature.properties['AREA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Вид использования</th>\
+                        <td>' + (feature.properties['UTL_DOC'] !== null ? autolinker.link(feature.properties['UTL_DOC'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Стоимость кв. метра</th>\
+                        <td>' + (feature.properties['Area_cost_m2'] !== null ? autolinker.link(feature.properties['Area_cost_m2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Status_3_0(feature) {
+            switch(String(feature.properties['STATUS'])) {
+                case '1':
+                    return {
+                pane: 'pane_Status_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(14,139,211,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '5':
+                    return {
+                pane: 'pane_Status_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(190,30,214,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '6':
+                    return {
+                pane: 'pane_Status_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(206,91,19,1.0)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_Status_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(83,214,65,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Status_3');
+        map.getPane('pane_Status_3').style.zIndex = 403;
+        map.getPane('pane_Status_3').style['mix-blend-mode'] = 'normal';
+        var layer_Status_3 = new L.geoJson(json_Status_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Status_3',
+            layerName: 'layer_Status_3',
+            pane: 'pane_Status_3',
+            onEachFeature: pop_Status_3,
+            style: style_Status_3_0,
+        });
+        bounds_group.addLayer(layer_Status_3);
+        map.addLayer(layer_Status_3);
+        function pop_Category_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Стоимость</th>\
+                        <td>' + (feature.properties['C_COST'] !== null ? autolinker.link(feature.properties['C_COST'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Площадь</th>\
+                        <td>' + (feature.properties['AREA'] !== null ? autolinker.link(feature.properties['AREA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Код использования</th>\
+                        <td>' + (feature.properties['UTL_ID'] !== null ? autolinker.link(feature.properties['UTL_ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Вид использования</th>\
+                        <td>' + (feature.properties['UTL_DOC'] !== null ? autolinker.link(feature.properties['UTL_DOC'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Стоимость кв. метра</th>\
+                        <td>' + (feature.properties['Area_cost_m2'] !== null ? autolinker.link(feature.properties['Area_cost_m2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Category_4_0(feature) {
+            switch(String(feature.properties['UTL_ID'])) {
+                case '003001000000':
+                    return {
+                pane: 'pane_Category_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(215,187,93,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '003002000000':
+                    return {
+                pane: 'pane_Category_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(215,138,168,1.0)',
+                interactive: true,
+            }
+                    break;
+                case '003008000000':
+                    return {
+                pane: 'pane_Category_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(82,239,77,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'None':
+                    return {
+                pane: 'pane_Category_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(143,222,239,1.0)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_Category_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(121,58,229,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Category_4');
+        map.getPane('pane_Category_4').style.zIndex = 404;
+        map.getPane('pane_Category_4').style['mix-blend-mode'] = 'normal';
+        var layer_Category_4 = new L.geoJson(json_Category_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Category_4',
+            layerName: 'layer_Category_4',
+            pane: 'pane_Category_4',
+            onEachFeature: pop_Category_4,
+            style: style_Category_4_0,
+        });
+        bounds_group.addLayer(layer_Category_4);
+        map.addLayer(layer_Category_4);
+        function pop_Area_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Стоимость</th>\
+                        <td>' + (feature.properties['C_COST'] !== null ? autolinker.link(feature.properties['C_COST'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Площадь</th>\
+                        <td>' + (feature.properties['AREA'] !== null ? autolinker.link(feature.properties['AREA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Использование</th>\
+                        <td>' + (feature.properties['UTL_DOC'] !== null ? autolinker.link(feature.properties['UTL_DOC'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Стоимость кв. метра</th>\
+                        <td>' + (feature.properties['Area_cost_m2'] !== null ? autolinker.link(feature.properties['Area_cost_m2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Area_5_0(feature) {
+            if (feature.properties['AREA'] >= 1.000000 && feature.properties['AREA'] <= 6885.000000 ) {
+                return {
+                pane: 'pane_Area_5',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,255,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['AREA'] >= 6885.000000 && feature.properties['AREA'] <= 24828.990000 ) {
+                return {
+                pane: 'pane_Area_5',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,191,191,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['AREA'] >= 24828.990000 && feature.properties['AREA'] <= 63750.000000 ) {
+                return {
+                pane: 'pane_Area_5',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,128,128,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['AREA'] >= 63750.000000 && feature.properties['AREA'] <= 314840.000000 ) {
+                return {
+                pane: 'pane_Area_5',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,64,64,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['AREA'] >= 314840.000000 && feature.properties['AREA'] <= 1961051.530000 ) {
+                return {
+                pane: 'pane_Area_5',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,0,0,1.0)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_Area_5');
+        map.getPane('pane_Area_5').style.zIndex = 405;
+        map.getPane('pane_Area_5').style['mix-blend-mode'] = 'normal';
+        var layer_Area_5 = new L.geoJson(json_Area_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Area_5',
+            layerName: 'layer_Area_5',
+            pane: 'pane_Area_5',
+            onEachFeature: pop_Area_5,
+            style: style_Area_5_0,
+        });
+        bounds_group.addLayer(layer_Area_5);
+        map.addLayer(layer_Area_5);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'Площадь земель Area<br /><table><tr><td style="text-align: center;"><img src="legend/Area_5_168850.png" /></td><td> 1 - 6885 </td></tr><tr><td style="text-align: center;"><img src="legend/Area_5_6885248291.png" /></td><td> 6885 - 24829 </td></tr><tr><td style="text-align: center;"><img src="legend/Area_5_24829637502.png" /></td><td> 24829 - 63750 </td></tr><tr><td style="text-align: center;"><img src="legend/Area_5_637503148403.png" /></td><td> 63750 - 314840 </td></tr><tr><td style="text-align: center;"><img src="legend/Area_5_31484019610524.png" /></td><td> 314840 - 1961052 </td></tr></table>': layer_Area_5,'Категория земель Category<br /><table><tr><td style="text-align: center;"><img src="legend/Category_4_0030010000000.png" /></td><td>003001000000</td></tr><tr><td style="text-align: center;"><img src="legend/Category_4_0030020000001.png" /></td><td>003002000000</td></tr><tr><td style="text-align: center;"><img src="legend/Category_4_0030080000002.png" /></td><td>003008000000</td></tr><tr><td style="text-align: center;"><img src="legend/Category_4_None3.png" /></td><td>None</td></tr><tr><td style="text-align: center;"><img src="legend/Category_4_4.png" /></td><td></td></tr></table>': layer_Category_4,'Статус земель Status<br /><table><tr><td style="text-align: center;"><img src="legend/Status_3_10.png" /></td><td>1</td></tr><tr><td style="text-align: center;"><img src="legend/Status_3_51.png" /></td><td>5</td></tr><tr><td style="text-align: center;"><img src="legend/Status_3_62.png" /></td><td>6</td></tr><tr><td style="text-align: center;"><img src="legend/Status_3_3.png" /></td><td></td></tr></table>': layer_Status_3,'КД стоимость Cost<br /><table><tr><td style="text-align: center;"><img src="legend/Cost_2_013164990.png" /></td><td> 0 - 1316499 </td></tr><tr><td style="text-align: center;"><img src="legend/Cost_2_131649951884151.png" /></td><td> 1316499 - 5188415 </td></tr><tr><td style="text-align: center;"><img src="legend/Cost_2_5188415144957832.png" /></td><td> 5188415 - 14495783 </td></tr><tr><td style="text-align: center;"><img src="legend/Cost_2_14495783889514873.png" /></td><td> 14495783 - 88951487 </td></tr><tr><td style="text-align: center;"><img src="legend/Cost_2_889514871419388664.png" /></td><td> 88951487 - 141938866 </td></tr></table>': layer_Cost_2,'КД стоимость метра Cost per metr<br /><table><tr><td style="text-align: center;"><img src="legend/Costpermetr_1_014222800.png" /></td><td> 0 - 1422280 </td></tr><tr><td style="text-align: center;"><img src="legend/Costpermetr_1_142228028445601.png" /></td><td> 1422280 - 2844560 </td></tr><tr><td style="text-align: center;"><img src="legend/Costpermetr_1_284456042668402.png" /></td><td> 2844560 - 4266840 </td></tr><tr><td style="text-align: center;"><img src="legend/Costpermetr_1_426684056891203.png" /></td><td> 4266840 - 5689120 </td></tr><tr><td style="text-align: center;"><img src="legend/Costpermetr_1_568912071114004.png" /></td><td> 5689120 - 7111400 </td></tr><tr><td style="text-align: center;"><img src="legend/Costpermetr_1_711140085336805.png" /></td><td> 7111400 - 8533680 </td></tr><tr><td style="text-align: center;"><img src="legend/Costpermetr_1_853368099559606.png" /></td><td> 8533680 - 9955960 </td></tr><tr><td style="text-align: center;"><img src="legend/Costpermetr_1_9955960113782407.png" /></td><td> 9955960 - 11378240 </td></tr><tr><td style="text-align: center;"><img src="legend/Costpermetr_1_11378240128005208.png" /></td><td> 11378240 - 12800520 </td></tr><tr><td style="text-align: center;"><img src="legend/Costpermetr_1_12800520142228009.png" /></td><td> 12800520 - 14222800 </td></tr></table>': layer_Costpermetr_1,"Подложка OSM Standard": layer_OSMStandard_0,}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>

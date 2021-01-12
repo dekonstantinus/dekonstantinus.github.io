@@ -1,0 +1,104 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+.wrapper {
+    padding-left: 15px;
+    padding-right: 15px;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+.navigation {
+    background-color: #D6D6D6;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 20px;
+    font-size: 26px;
+}
+.nav {
+    display: flex;
+    list-style-type: none;
+    padding-left: 15px;
+    font-weight: 600;
+}
+.nav>li {
+    padding-right: 15px;
+    margin-left: 15px;
+}
+.nav>li::before {
+    content: '|';
+    width: 3px;
+    height: 25px;
+}
+.nav>li:first-child::before {
+    display: none;
+}
+.nav>li>a {
+    text-decoration: none;
+    color: #000000;
+}
+.information {
+    display: flex;
+    flex-flow: row nowrap;
+    align-content: flex-start;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+.banner {
+    background-color: #E7F4F9;
+    max-width: 400px;
+}
+.banner>li>a {
+    text-decoration: none;
+    color: #000000;
+}
+.textinf {
+    padding-bottom: 5px;
+}
+.title {
+    background-color: #ffffff;
+    font-size: 21px;
+    list-style-type: none;
+    font-weight: 400;
+    padding: 5px;
+    position: absolute;
+    top:105px;
+    right:175px
+}
+.title>li>a {
+    text-decoration: none;
+    color: #000000;
+}
+.mapper {
+    padding-top: 15px;
+}
+.content {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    position: relative;
+    padding-left: 15px;
+}
+.box {
+    margin-top: 10px;
+    max-width: 350px;
+    padding-right: 10px;
+    position: relative;
+    line-height: 22px;
+    background-color: #EFEFEF;
+}
+.box>ul>li>a {
+    text-decoration: none;
+    color: #000000;
+}
+.footer {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    padding-left: 30px;
+    padding-right: 30px;
+    max-width: 1500px;
+    margin: 0 auto;
+}
